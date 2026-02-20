@@ -14,9 +14,9 @@ def generate_launch_description():
                                                  description='WebRTC log level (options: none, verbose, warning, info, error)')
 
     mosaic_node = Node(
-        package='mosaic-ros2-bringup',
-        executable='mosaic-ros2-bringup',
-        name='mosaic_ros2_bringup',
+        package='mosaic-ros2-husky-a200-example',
+        executable='mosaic-ros2-husky-a200-example',
+        name='mosaic_ros2_husky_a200_example',
         # prefix=['gdbserver localhost:3000'],
         parameters=[{
             'mosaic_config': LaunchConfiguration('mosaic_config'),
