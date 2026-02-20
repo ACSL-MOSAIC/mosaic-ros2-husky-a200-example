@@ -7,16 +7,18 @@
 using namespace mosaic::ros2::clearpath::connector;
 
 void PlatformPowerConnectorConfigurer::Configure() {
-    MOSAIC_LOG_INFO("Configuring ROS2 Clearpath clearpath_platform_msgs::NavSatFix Connector...");
+    MOSAIC_LOG_INFO("Configuring ROS2 Clearpath clearpath_platform_msgs::Power Connector...");
 
     handler_ = std::make_shared<PlatformPowerDataChannel>(connector_config_->label);
 
+    const auto qos = rclcpp::QoS(10).best_effort().durability_volatile();
+
     subscription_ = mosaic_node_->create_subscription<clearpath_platform_msgs::msg::Power>(
-        connector_config_->params.at("topic_name"), 10,
+        connector_config_->params.at("topic_name"), qos,
         std::bind(&PlatformPowerConnectorConfigurer::Callback, this, std::placeholders::_1));
 
     mosaic_node_->AddSubscription(subscription_);
-    MOSAIC_LOG_INFO("Configuring ROS2 Clearpath clearpath_platform_msgs::NavSatFix Connector Done!");
+    MOSAIC_LOG_INFO("Configuring ROS2 Clearpath clearpath_platform_msgs::Power Connector Done!");
 }
 
 void PlatformPowerConnectorConfigurer::Callback(clearpath_platform_msgs::msg::Power::SharedPtr msg) {
